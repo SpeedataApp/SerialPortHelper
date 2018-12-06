@@ -36,6 +36,10 @@
         <item>ttyUSB2</item>
         <item>ttyUSB3</item>
         <item>ttyUSB4</item>
+        <item>ttyHSL0</item>
+        <item>ttyHSL1</item>
+        <item>ttyHSL2</item>
+        <item>ttyGS0</item>
         <!--<item>ttyG0</item>-->
         <!--<item>ttyG1</item>-->
         <!--<item>ttyG2</item>-->

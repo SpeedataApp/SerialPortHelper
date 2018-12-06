@@ -2,44 +2,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:textColor="@color/black"
-    tools:context=".MainActivity" >
+    android:padding="10dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="串口助手" />
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_state"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="xxx"
-                android:textColor="@color/white" />
+                android:text="xxx" />
 
             <LinearLayout
                 android:id="@+id/layout1"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="6"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" >
+                    android:layout_height="fill_parent">
 
                     <TextView
                         android:id="@+id/textView1"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:gravity="center"
-                        android:text="@string/acceptpart"
-                        android:textColor="@color/white" />
+                        android:text="@string/acceptpart" />
 
                     <CheckBox
                         android:id="@+id/checkBox1"
@@ -47,8 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@+id/textView1"
-                        android:text="@string/CheckBox1"
-                        android:textColor="@color/white" />
+                        android:text="@string/CheckBox1" />
 
                     <Button
                         android:id="@+id/clear"
@@ -66,11 +69,11 @@
                 android:id="@+id/EditTextaccept"
                 android:layout_width="fill_parent"
                 android:layout_height="150dp"
+                android:background="@drawable/bg_edittext_focused"
                 android:cursorVisible="false"
                 android:editable="false"
                 android:textColorHint="#ffff00"
-                android:textSize="12dp" >
-            </EditText>
+                android:textSize="12dp"></EditText>
 
             <LinearLayout
                 android:id="@+id/layout_11"
@@ -78,11 +81,11 @@
                 android:layout_height="fill_parent"
                 android:layout_below="@+id/EditTextaccept"
                 android:layout_weight="6"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" >
+                    android:layout_height="fill_parent">
 
                     <TextView
                         android:id="@+id/textView2"
@@ -90,8 +93,7 @@
                         android:layout_height="fill_parent"
                         android:layout_alignParentLeft="true"
                         android:gravity="center"
-                        android:text="@string/sentpart"
-                        android:textColor="@color/white" />
+                        android:text="@string/sentpart" />
 
                     <CheckBox
                         android:id="@+id/checkBox2"
@@ -100,8 +102,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@+id/textView2"
                         android:layout_weight="0.86"
-                        android:text="@string/CheckBox2"
-                        android:textColor="@color/white" />
+                        android:text="@string/CheckBox2" />
                     <!-- android:layout_toRightOf="@+id/layout_11" -->
 
                     <Button
@@ -119,6 +120,7 @@
                 android:id="@+id/EditTextsend"
                 android:layout_width="fill_parent"
                 android:layout_height="100dp"
+                android:background="@drawable/bg_edittext_focused"
                 android:includeFontPadding="true"
                 android:textSize="18sp" />
 
@@ -126,7 +128,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="5"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/linearLayout1"
@@ -134,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/EditTextsend" >
+                    android:layout_below="@+id/EditTextsend">
 
                     <Button
                         android:id="@+id/send"
@@ -144,22 +146,23 @@
                         android:includeFontPadding="false"
                         android:text="@string/send"
                         android:textSize="15dp" />
- <Button
+
+                    <Button
                         android:id="@+id/set"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        
+
                         android:text="@string/setpbp"
                         android:textSize="15dp" />
-                    
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="5"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btn_update"
@@ -169,7 +172,7 @@
                         android:text="@string/check_updates"
                         android:textSize="15dp" />
 
-                   
+
                     <Button
                         android:id="@+id/close"
                         android:layout_width="fill_parent"

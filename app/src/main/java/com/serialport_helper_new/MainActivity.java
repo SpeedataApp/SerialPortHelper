@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.serialport.SerialPort;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.serialport_helper_new.updateversion.UpdateVersion;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
 import java.util.Timer;
@@ -81,12 +83,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getWindow().setBackgroundDrawableResource(R.color.black);
+//        getWindow().setBackgroundDrawableResource(R.color.black);
         mContext = this;
         // changeViewSize();
         mSerialPort = new SerialPort();
-
-        // mSerialPort.OpenSerialPort(SERIALPORT, 19200);
         btnCheckUpdate = findViewById(R.id.btn_update);
         btnCheckUpdate.setOnClickListener(new ClickEvent());
         mReadSerialTimer = new Timer();
@@ -130,15 +130,12 @@ public class MainActivity extends Activity {
         //aa aa aa 96 69 00 03 20 01 22
 //		EditTextsend.setText("aaaaaa9669000312ffee");
         EditTextsend.setText("aaaaaa96690003200122");
+
         //                    244646464646464646464646462c31312c2c30350d
 //		EditTextsend.setText("aaaaaa96690003200122");
         //24 46 46 46 46 46 46 46 46 46 46 46 46 2c 31 31 2c 2c 30 35 0d
         // sendstring = EditTextsend.getText().toString();
-
         fd = mSerialPort.getFd();
-
-        mSerialPort.WriteSerialByte(mSerialPort.getFd(),
-                HexString2Bytes(sendstring));
 
         handler = new Handler() {
             @Override
@@ -293,6 +290,8 @@ public class MainActivity extends Activity {
                                 HexString2Bytes(sendstring));
                     }
                 }
+
+
             } else if (v == close) {
                 MainActivity.this.finish();
                 setPBP.closeDev();

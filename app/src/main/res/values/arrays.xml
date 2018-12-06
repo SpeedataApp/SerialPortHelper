@@ -35,6 +35,10 @@
         <item>ttyUSB2</item>
         <item>ttyUSB3</item>
         <item>ttyUSB4</item>
+        <item>ttyHSL0</item>
+        <item>ttyHSL1</item>
+        <item>ttyHSL2</item>
+        <item>ttyGS0</item>
         <!--<item>ttyG0</item>-->
         <!--<item>ttyG1</item>-->
         <!--<item>ttyG2</item>-->
@@ -73,6 +77,10 @@
         <item>230400</item>
         <item>460800</item>
         <item>921600</item>
+        <item>other</item>
+    </string-array>
+    <string-array name="databit">
+        <item>8</item>
         <item>other</item>
     </string-array>
     <string-array name="stopbit">

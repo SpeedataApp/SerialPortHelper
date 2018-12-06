@@ -1,10 +1,13 @@
 package com.serialport_helper_new;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.serialport.SerialPort;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -43,6 +47,7 @@ class SettingsDialog extends Dialog implements
         ArrayPowerPath = mContext.getResources().getStringArray(
                 R.array.power_path);
         ArrayStopBit = mContext.getResources().getStringArray(R.array.stopbit);
+        Arraydatabit = mContext.getResources().getStringArray(R.array.databit);
         ArrayCrc = mContext.getResources().getStringArray(R.array.crc);
     }
 
@@ -57,10 +62,13 @@ class SettingsDialog extends Dialog implements
     private final String[] ArrayPowerPath;
     private final String[] ArrayStopBit;
     private final String[] ArrayCrc;
+    private final String[] Arraydatabit;
     private Spinner b_Spinner;
     private Spinner p_Spinner;
     private Spinner s_Spinner;
     private Spinner crc_Spinner;
+    private Spinner databitSpinner;
+
     private int baudrate = 0;
     private String serial_path = "";
     private String power_path;
@@ -73,7 +81,9 @@ class SettingsDialog extends Dialog implements
     private ArrayAdapter<String> p_adapter;
     private ArrayAdapter<String> s_adapter;
     private ArrayAdapter<String> crc_adapter;
+    private ArrayAdapter<String> databit_adapter;
     private int crc_num = 0;
+    private int dataBit = 8;
     private int powercount = 0;
     private int serial = 0;
 
@@ -92,6 +102,7 @@ class SettingsDialog extends Dialog implements
         path_Spinner = this.findViewById(R.id.pathspinner);
         s_Spinner = this.findViewById(R.id.spinner3);
         crc_Spinner = this.findViewById(R.id.spinner4);
+        databitSpinner = this.findViewById(R.id.spinner_data);
         goback.setOnClickListener(this);
         poweron.setOnClickListener(this);
         poweroff.setOnClickListener(this);
@@ -209,6 +220,8 @@ class SettingsDialog extends Dialog implements
                     }
 
                 });
+
+
         s_adapter = new ArrayAdapter<>(mainActivity,
                 android.R.layout.simple_spinner_item, ArrayStopBit);
         // Log.w(TAG,"WARN");
@@ -263,10 +276,51 @@ class SettingsDialog extends Dialog implements
                     }
 
                 });
+
+
         p_Spinner.setSelection(0);
         b_Spinner.setSelection(0);
         openSerial.requestFocus();
+        databit_adapter = new ArrayAdapter<>(mainActivity, android.R.layout.simple_spinner_item, Arraydatabit);
+        databit_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        databitSpinner.setAdapter(databit_adapter);
+        databitSpinner.setSelection(0);
+        databitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    dataBit = Integer.parseInt(databitSpinner
+                            .getSelectedItem().toString());
+                } else if (position == 1) {
+                    showInputDialog();
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
+
+    private void showInputDialog() {
+        /*@setView 装入一个EditView
+         */
+        final EditText editText = new EditText(mainActivity);
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        AlertDialog.Builder inputDialog =
+                new AlertDialog.Builder(mainActivity);
+        inputDialog.setTitle(R.string.dialog_databit).setView(editText);
+        inputDialog.setPositiveButton(R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dataBit = Integer.parseInt(editText.getText().toString());
+                    }
+                }).show();
+    }
+
 
     private DeviceControl DevCtrl;
     // DeviceControl DevCtrl2;
@@ -309,7 +363,7 @@ class SettingsDialog extends Dialog implements
             try {
                 System.out.println("open_port:" + serial_path);
                 mainActivity.getmSerialPort().OpenSerial(serial_path, baudrate,
-                        8, stopbitt, crc_num);
+                        dataBit, stopbitt, crc_num);
                 // System.out.println(Getstopbit() + "!!!!!!!ceshi");
                 DisplayToast("open " + serial_path + " by  " + baudrate
                         + " baurate success");

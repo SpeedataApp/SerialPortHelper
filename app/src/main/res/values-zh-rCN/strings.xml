@@ -14,6 +14,7 @@
     <string name="port">端口:</string>
     <string name="baudrate">波特率:</string>
     <string name="sure">设置</string>
+    <string name="dialog_databit">数据位</string>
     <string name="back">返回</string>
     <string name="ok">确定</string>
     <string name="cancle">取消</string>
@@ -24,6 +25,7 @@
     <string name="poweroff">下电</string>
     <string name="path">设置上电路径:</string>
     <string name="stopbit">停止位:</string>
+    <string name="databit">数据位:</string>
     <string name="crc">校验位:</string>
     <string name="no_crc">奇校验</string>
     <string name="odd_crc">奇校验</string>
