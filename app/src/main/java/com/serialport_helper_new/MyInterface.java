@@ -9,7 +9,4 @@ interface MyInterface {
 
 	public void setSerialPortSpinner(int position);
 
-	public void setPower(String poweron, String poweroff);
-
-	public void setPowerSpinner(int position);
 }

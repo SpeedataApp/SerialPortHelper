@@ -56,16 +56,12 @@
         <item>other</item>
     </string-array>
     <string-array name="power_path">
-        <item>GPIO 64</item>
-        <item>GPIO 106</item>
-        <item>/proc/driver/as3992</item>
-        <item>/proc/driver/scan</item>
-        <item>/proc/driver/tda8029</item>
-        <item>/proc/driver/sirf</item>
-        <item>/proc/driver/printer</item>
-        <item>/proc/geomobile/zigbee</item>
-        <item>/proc/geomobile/lf</item>
-        <item>other</item>
+        <item>MAIN</item>
+        <item>EXPAND</item>
+        <item>MAIN_AND_EXPAND</item>
+        <item>NEW_MAIN</item>
+        <item>EXPAND2</item>
+        <item>MAIN_AND_EXPAND2</item>
     </string-array>
     <string-array name="baudrate">
         <item>1200</item>

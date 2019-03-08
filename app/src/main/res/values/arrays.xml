@@ -38,33 +38,17 @@
         <item>ttyHSL0</item>
         <item>ttyHSL1</item>
         <item>ttyHSL2</item>
+        <item>ttyHSL3</item>
         <item>ttyGS0</item>
-        <!--<item>ttyG0</item>-->
-        <!--<item>ttyG1</item>-->
-        <!--<item>ttyG2</item>-->
-        <!--<item>ttyG3</item>-->
-        <!--<item>ttyO0</item>-->
-        <!--<item>ttyO1</item>-->
-        <!--<item>ttyO2</item>-->
-        <!--<item>ttyO3</item>-->
-        <!--<item>eser0</item>-->
-        <!--<item>eser1</item>-->
-        <!--<item>eser2</item>-->
-        <!--<item>eser3</item>-->
-
         <item>other</item>
     </string-array>
     <string-array name="power_path">
-        <item>GPIO 64</item>
-        <item>GPIO 106</item>
-        <item>/proc/driver/as3992</item>
-        <item>/proc/driver/scan</item>
-        <item>/proc/driver/tda8029</item>
-        <item>/proc/driver/sirf</item>
-        <item>/proc/driver/printer</item>
-        <item>/proc/geomobile/zigbee</item>
-        <item>/proc/geomobile/lf</item>
-        <item>other</item>
+        <item>MAIN</item>
+        <item>EXPAND</item>
+        <item>MAIN_AND_EXPAND</item>
+        <item>NEW_MAIN</item>
+        <item>EXPAND2</item>
+        <item>MAIN_AND_EXPAND2</item>
     </string-array>
     <string-array name="baudrate">
         <item>1200</item>

@@ -5,12 +5,6 @@
     android:padding="10dp"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="串口助手" />
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -22,10 +16,18 @@
             android:orientation="vertical">
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:id="@+id/tv_title"
+                android:text="@string/title_name" />
+
+            <TextView
                 android:id="@+id/tv_state"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="xxx" />
+                android:text="" />
 
             <LinearLayout
                 android:id="@+id/layout1"
@@ -134,9 +136,9 @@
                     android:id="@+id/linearLayout1"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/EditTextsend"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/EditTextsend">
+                    android:layout_alignParentRight="true">
 
                     <Button
                         android:id="@+id/send"

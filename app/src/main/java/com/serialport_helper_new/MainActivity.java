@@ -8,8 +8,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
-import android.serialport.SerialPort;
+import android.serialport.DeviceControlSpd;
+import android.serialport.SerialPortSpd;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.serialport_helper_new.updateversion.UpdateVersion;
+import com.speedata.libutils.DataConversionUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -47,7 +48,7 @@ public class MainActivity extends Activity {
     static final String TAG = "SerialPort";
     byte[] cmd = new byte[3];
     int fd;
-    SerialPort mSerialPort;
+    SerialPortSpd mSerialPort;
 
     private SettingsDialog setPBP;
     private Handler handler = null;
@@ -68,7 +69,7 @@ public class MainActivity extends Activity {
     private boolean debugtest = true;
     private static final String POWERPATH = "/proc/driver/scan";
     private static final String SERIALPORT = "/dev/eser0";
-    DeviceControl DevCtrl;
+    DeviceControlSpd DevCtrl;
     private String power_off;
 
     // public interface PowerAndSerial {
@@ -79,6 +80,8 @@ public class MainActivity extends Activity {
 
     private Button btnCheckUpdate;
 
+
+    @Override
     @SuppressLint("HandlerLeak")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +89,7 @@ public class MainActivity extends Activity {
 //        getWindow().setBackgroundDrawableResource(R.color.black);
         mContext = this;
         // changeViewSize();
-        mSerialPort = new SerialPort();
+        mSerialPort = new SerialPortSpd();
         btnCheckUpdate = findViewById(R.id.btn_update);
         btnCheckUpdate.setOnClickListener(new ClickEvent());
         mReadSerialTimer = new Timer();
@@ -98,6 +101,8 @@ public class MainActivity extends Activity {
         set = this.findViewById(R.id.set);
         EditTextaccept = findViewById(R.id.EditTextaccept);
         tvState = findViewById(R.id.tv_state);
+        TextView textView = findViewById(R.id.tv_title);
+        textView.setText(getResources().getString(R.string.title_name)+"_"+getVersion());
         EditTextsend = findViewById(R.id.EditTextsend);
         // EditTextsend.setText("1B061B23371B16");
         sendButton.setOnClickListener(new ClickEvent());
@@ -107,36 +112,9 @@ public class MainActivity extends Activity {
         set.setOnClickListener(new ClickEvent());
         m_CheckBox1 = findViewById(R.id.checkBox1);
         m_CheckBox2 = findViewById(R.id.checkBox2);
-        // b_Spinner = (Spinner) findViewById(R.id.spinner1);
-        // p_Spinner = (Spinner) findViewById(R.id.spinner2);
-
         sendButton.setEnabled(false);
-        // EditTextsend.setText("aa 06 33 00 01 00 00 3A bb");
-        // EditTextsend.setText("bb00030001007e48ab");
-
-        // try {
-        // DevCtrl = new DeviceControl(POWERPATH, this);
-        // DevCtrl.PowerOnDevice();
-        // mSerialPort.OpenSerial(SERIALPORT, 19200);
-        // } catch (IOException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
-        // aa0a55 0001 000000000000 60bb
-        // EF01FFFFFFFF010003010005
-
-        // aa0a55000100000000000060bb
-        // aa0544000d7fd5bb
-        //aa aa aa 96 69 00 03 20 01 22
-//		EditTextsend.setText("aaaaaa9669000312ffee");
-        EditTextsend.setText("aaaaaa96690003200122");
-
-        //                    244646464646464646464646462c31312c2c30350d
-//		EditTextsend.setText("aaaaaa96690003200122");
-        //24 46 46 46 46 46 46 46 46 46 46 46 46 2c 31 31 2c 2c 30 35 0d
-        // sendstring = EditTextsend.getText().toString();
+        EditTextsend.setText("7e000ec00600000000000000d47e");
         fd = mSerialPort.getFd();
-
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -238,19 +216,19 @@ public class MainActivity extends Activity {
                 });
     }
 
-    public SerialPort getmSerialPort() {
+    public SerialPortSpd getmSerialPort() {
         return mSerialPort;
     }
 
-    public void setmSerialPort(SerialPort mSerialPort) {
+    public void setmSerialPort(SerialPortSpd mSerialPort) {
         this.mSerialPort = mSerialPort;
     }
 
-    public DeviceControl getDevCtrl() {
+    public DeviceControlSpd getDevCtrl() {
         return DevCtrl;
     }
 
-    public void setDevCtrl(DeviceControl devCtrl) {
+    public void setDevCtrl(DeviceControlSpd devCtrl) {
         DevCtrl = devCtrl;
     }
 
@@ -271,6 +249,7 @@ public class MainActivity extends Activity {
     private int temp_count = 0;
 
     class ClickEvent implements View.OnClickListener {
+        @Override
         public void onClick(View v) {
             if (v == sendButton) {
                 // if(temp_count%2!=0){
@@ -438,8 +417,7 @@ public class MainActivity extends Activity {
     public void ShowState() {
         tvState.setText("");
         if (setPBP.getSerial() > 0) {
-            tvState.setText("baudrate:" + setPBP.getBaudrate()
-                    + " serial_port:" + setPBP.getSerial_path());
+            tvState.setText("baudrate:" + setPBP.getBaudrate() + " serial_port:" + setPBP.getSerial_path());
         }
         if (setPBP.getPowercount() > 0) {
             tvState.append(" powerpath:" + setPBP.getPower_path());
@@ -449,6 +427,7 @@ public class MainActivity extends Activity {
         }
     }
 
+    @Override
     public void onDestroy() {
         setPBP.closeDev();
         setPBP.closeSerial();
