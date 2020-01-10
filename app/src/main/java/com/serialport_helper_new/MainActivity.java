@@ -21,9 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.serialport_helper_new.updateversion.UpdateVersion;
+import com.serialport_helper_new.utils.ToastUtils;
 import com.speedata.libutils.DataConversionUtils;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
 import java.util.Timer;
@@ -31,6 +31,9 @@ import java.util.TimerTask;
 
 //import com.example.serialporthelper.MainActivity.ReadThread;
 
+/**
+ * @author xuyan
+ */
 public class MainActivity extends Activity {
 
     private Context mContext;
@@ -102,7 +105,7 @@ public class MainActivity extends Activity {
         EditTextaccept = findViewById(R.id.EditTextaccept);
         tvState = findViewById(R.id.tv_state);
         TextView textView = findViewById(R.id.tv_title);
-        textView.setText(getResources().getString(R.string.title_name)+"_"+getVersion());
+        textView.setText(getResources().getString(R.string.title_name) + "_" + getVersion());
         EditTextsend = findViewById(R.id.EditTextsend);
         // EditTextsend.setText("1B061B23371B16");
         sendButton.setOnClickListener(new ClickEvent());
@@ -125,7 +128,7 @@ public class MainActivity extends Activity {
                     if (EditTextaccept.getText().toString().length() > 1000) {
                         EditTextaccept.setText("");
                     }
-                    if (key1 == true) {
+                    if (key1) {
                         String accept_show = bytesToHexString(temp2);
                         EditTextaccept.append(accept_show + "\n");
                     } else {
@@ -153,20 +156,19 @@ public class MainActivity extends Activity {
                         if (m_CheckBox1.isChecked()) {
                             key1 = true;
                             try {
-                                if (EditTextaccept.getText().toString() != null) {
-                                    buff5 = "";
-                                    buff6 = EditTextaccept.getText().toString();
-                                    StringTokenizer ps = new StringTokenizer(
-                                            buff6);
-                                    buff6 = "";
-                                    int y = ps.countTokens();
-                                    for (int s = 0; s < y; s++) {
-                                        String ss = ps.nextToken();
-                                        buff6 = buff6 + ss;
-                                    }
-                                    buff5 = toHexString(buff6);
-                                    EditTextaccept.setText(buff5);
+                                EditTextaccept.getText().toString();
+                                buff5 = "";
+                                buff6 = EditTextaccept.getText().toString();
+                                StringTokenizer ps = new StringTokenizer(
+                                        buff6);
+                                buff6 = "";
+                                int y = ps.countTokens();
+                                for (int s = 0; s < y; s++) {
+                                    String ss = ps.nextToken();
+                                    buff6 = buff6 + ss;
                                 }
+                                buff5 = toHexString(buff6);
+                                EditTextaccept.setText(buff5);
                             } catch (NumberFormatException p1) {
                                 return;
                             }
@@ -259,7 +261,7 @@ public class MainActivity extends Activity {
                 // }
                 sendstring = EditTextsend.getText().toString();
                 temp_count++;
-                if (sendstring != "") {
+                if (!"".equals(sendstring)) {
                     if (!key_hex_send) {
                         send(sendstring);
                         // EditTextsend.setText("");
@@ -488,21 +490,13 @@ public class MainActivity extends Activity {
      */
     public byte uniteBytes(byte src0, byte src1) {
         try {
-            byte _b0 = Byte.decode("0x" + new String(new byte[]{src0}))
-                    .byteValue();
+            byte _b0 = Byte.decode("0x" + new String(new byte[]{src0}));
             _b0 = (byte) (_b0 << 4);
-            byte _b1 = Byte.decode("0x" + new String(new byte[]{src1}))
-                    .byteValue();
+            byte _b1 = Byte.decode("0x" + new String(new byte[]{src1}));
             byte ret = (byte) (_b0 ^ _b1);
             return ret;
         } catch (Exception e) {
-            // TODO: handle exception
-            Toast.makeText(
-                    mContext,
-                    "error"
-                            + mContext.getResources().getString(
-                            R.string.send_hex_hint), Toast.LENGTH_SHORT)
-                    .show();
+            ToastUtils.showShortToastSafe("error" + getString(R.string.send_hex_hint));
             return 0;
         }
 

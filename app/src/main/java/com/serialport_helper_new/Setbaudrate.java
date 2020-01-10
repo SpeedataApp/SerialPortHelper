@@ -1,15 +1,13 @@
 package com.serialport_helper_new;
 
-import java.io.IOException;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.serialport_helper_new.utils.ToastUtils;
 
 class Setbaudrate extends Dialog implements android.view.View.OnClickListener {
 	/**
@@ -23,17 +21,17 @@ class Setbaudrate extends Dialog implements android.view.View.OnClickListener {
 
 	public Setbaudrate(MyInterface mainActivity, Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 		interface1 = mainActivity;
 		mContext = context;
 	}
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.setbaudrate);
-		baudrate = (EditText) findViewById(R.id.bb);
-		ok = (Button) findViewById(R.id.ok1);
-		cancel = (Button) findViewById(R.id.cancle1);
+		baudrate = findViewById(R.id.bb);
+		ok = findViewById(R.id.ok1);
+		cancel = findViewById(R.id.cancle1);
 		ok.setOnClickListener(this);
 		cancel.setOnClickListener(this);
 		// baudrate.setInputType()
@@ -41,14 +39,14 @@ class Setbaudrate extends Dialog implements android.view.View.OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		if (v == ok) {
 			String temp_b = baudrate.getText().toString();
-			if (!temp_b.equals("")) {
+			if (!"".equals(temp_b)) {
 				interface1.setBaurdrate(Integer.parseInt(temp_b));
 				dismiss();
-			} else
-				Toast.makeText(mContext, "can't be empty", 1000).show();
+			} else {
+				ToastUtils.showShortToastSafe("can't be empty");
+			}
 		}
 		if (v == cancel) {
 			dismiss();

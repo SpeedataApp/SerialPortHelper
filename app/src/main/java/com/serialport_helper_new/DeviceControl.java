@@ -15,7 +15,8 @@ public class DeviceControl {
     DeviceControl(String path, Context context) throws IOException {
         File DeviceName = new File(path);
         mContext = context;
-        CtrlFile = new BufferedWriter(new FileWriter(DeviceName, false)); // open
+        // open
+        CtrlFile = new BufferedWriter(new FileWriter(DeviceName, false));
         // file
     }
 
@@ -60,7 +61,6 @@ public class DeviceControl {
             Toast.makeText(mContext, "open mtgpio driver success",
                     Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -73,7 +73,6 @@ public class DeviceControl {
             Toast.makeText(mContext, "close mtgpio driver success",
                     Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

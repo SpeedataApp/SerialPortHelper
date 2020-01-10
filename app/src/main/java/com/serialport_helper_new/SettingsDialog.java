@@ -21,6 +21,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.serialport_helper_new.utils.ToastUtils;
+
 import java.io.IOException;
 
 class SettingsDialog extends Dialog implements
@@ -123,8 +125,8 @@ class SettingsDialog extends Dialog implements
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int position, long id) {
                 arg0.setVisibility(View.VISIBLE);
-                if (b_Spinner.getSelectedItem().toString()
-                        .equals("other")) {
+                if ("other"
+                        .equals(b_Spinner.getSelectedItem().toString())) {
                     SettingsDialog.this.setBaudrate
                             .setTitle(R.string.sure);
                     SettingsDialog.this.setBaudrate.show();
@@ -148,7 +150,7 @@ class SettingsDialog extends Dialog implements
                 arg0.setVisibility(View.VISIBLE);
                 serial_path = SettingsDialog.this.p_Spinner
                         .getSelectedItem().toString();
-                if (serial_path.equals("other")) {
+                if ("other".equals(serial_path)) {
                     setDialog.setTitle(R.string.sure);
                     setDialog.show();
                 } else {
@@ -220,10 +222,10 @@ class SettingsDialog extends Dialog implements
                     crc_num = 0;
                 }
                 if (position == 1 && id == 1) {
-                    crc_num = 2; // odd ��У��
+                    crc_num = 2; // odd
                 }
                 if (position == 2 && id == 2) {
-                    crc_num = 1; // even żУ��
+                    crc_num = 1; // even
                 }
             }
 
@@ -280,8 +282,8 @@ class SettingsDialog extends Dialog implements
         if (v == poweron) {
             try {
                 System.out.println(power_path);
-                if (tvGpioShow.getText().toString().equals("")) {
-                    Toast.makeText(mainActivity, R.string.please_gpio, Toast.LENGTH_SHORT).show();
+                if ("".equals(tvGpioShow.getText().toString())) {
+                    ToastUtils.showShortToastSafe(R.string.please_gpio);
                     return;
                 }
                 String[] strs = tvGpioShow.getText().toString().split(",");
@@ -325,12 +327,9 @@ class SettingsDialog extends Dialog implements
                 s_Spinner.setEnabled(false);
                 crc_Spinner.setEnabled(false);
                 serial = 1;
-            } catch (SecurityException e) {
+            } catch (SecurityException | IOException e) {
                 DisplayToast("open " + serial_path + " by  " + baudrate + " baurate failed");
 
-                e.printStackTrace();
-            } catch (IOException e) {
-                DisplayToast("open " + serial_path + " by  " + baudrate + " baurate failed");
                 e.printStackTrace();
             }
         } else if (v == poweroff) {
@@ -338,8 +337,7 @@ class SettingsDialog extends Dialog implements
                 if (DevCtrl != null) {
                     DevCtrl.PowerOffDevice();
                 }
-                Toast.makeText(mContext, "close success",
-                        Toast.LENGTH_SHORT).show();
+                ToastUtils.showShortToastSafe("close success");
             } catch (IOException e) {
                 e.printStackTrace();
             }
