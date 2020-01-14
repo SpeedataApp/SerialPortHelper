@@ -15,7 +15,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,12 +73,6 @@ public class MainActivity extends Activity {
     private static final String SERIALPORT = "/dev/eser0";
     DeviceControlSpd DevCtrl;
     private String power_off;
-
-    // public interface PowerAndSerial {
-    // public void Power(DeviceControl DevCtrl, String power_off);
-    //
-    // public void SerialPort(SerialPort mSerialPort);
-    // }
 
     private Button btnCheckUpdate;
 
@@ -147,75 +140,61 @@ public class MainActivity extends Activity {
 
         };
 
-        m_CheckBox1
-                .setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
-
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView,
-                                                 boolean isChecked) {
-                        if (m_CheckBox1.isChecked()) {
-                            key1 = true;
-                            try {
-                                EditTextaccept.getText().toString();
-                                buff5 = "";
-                                buff6 = EditTextaccept.getText().toString();
-                                StringTokenizer ps = new StringTokenizer(
-                                        buff6);
-                                buff6 = "";
-                                int y = ps.countTokens();
-                                for (int s = 0; s < y; s++) {
-                                    String ss = ps.nextToken();
-                                    buff6 = buff6 + ss;
-                                }
-                                buff5 = toHexString(buff6);
-                                EditTextaccept.setText(buff5);
-                            } catch (NumberFormatException p1) {
-                                return;
-                            }
-                            Log.e("checkbox", "m_CheckBox1.isChecked");
-                        } else {
-                            try {
-                                buff5 = EditTextaccept.getText().toString();
-                                StringTokenizer ps = new StringTokenizer(buff5);
-                                int r = ps.countTokens();
-                                buff5 = "";
-                                for (int i = 0; i < r; i++) {
-                                    String z = ps.nextToken();
-                                    buff5 = buff5 + z;
-                                }
-                            } catch (NumberFormatException p1) {
-                                return;
-                            }
-                            buff5 = toStringHex(buff5);
-                            EditTextaccept.setText(buff5);
-                            Log.e("checkbox", "m_CheckBox1.isnotChecked");
-                            key1 = false;
-                        }
+        m_CheckBox1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (m_CheckBox1.isChecked()) {
+                key1 = true;
+                try {
+                    buff5 = "";
+                    buff6 = EditTextaccept.getText().toString();
+                    StringTokenizer ps = new StringTokenizer(
+                            buff6);
+                    buff6 = "";
+                    int y = ps.countTokens();
+                    for (int s = 0; s < y; s++) {
+                        String ss = ps.nextToken();
+                        buff6 = buff6 + ss;
                     }
-                });
-        m_CheckBox2
-                .setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
-
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView,
-                                                 boolean isChecked) {
-                        if (m_CheckBox2.isChecked()) {
-                            key_hex_send = true;
-                            System.out.println(key_hex_send);
-                            Log.e("checkbox", "m_CheckBox2.isChecked");
-                            EditTextsend.setHint(getResources().getString(
-                                    R.string.send_hex_hint));
-
-                        } else {
-                            key_hex_send = false;
-                            EditTextsend.setHint(getResources().getString(
-                                    R.string.send_hex_hint_null));
-                            System.out.println(key_hex_send);
-                        }
-
+                    buff5 = toHexString(buff6);
+                    EditTextaccept.setText(buff5);
+                } catch (NumberFormatException p1) {
+                    return;
+                }
+                Log.e("checkbox", "m_CheckBox1.isChecked");
+            } else {
+                try {
+                    buff5 = EditTextaccept.getText().toString();
+                    StringTokenizer ps = new StringTokenizer(buff5);
+                    int r = ps.countTokens();
+                    buff5 = "";
+                    for (int i = 0; i < r; i++) {
+                        String z = ps.nextToken();
+                        buff5 = buff5 + z;
                     }
+                } catch (NumberFormatException p1) {
+                    return;
+                }
+                buff5 = toStringHex(buff5);
+                EditTextaccept.setText(buff5);
+                Log.e("checkbox", "m_CheckBox1.isnotChecked");
+                key1 = false;
+            }
+        });
+        m_CheckBox2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (m_CheckBox2.isChecked()) {
+                key_hex_send = true;
+                System.out.println(key_hex_send);
+                Log.e("checkbox", "m_CheckBox2.isChecked");
+                EditTextsend.setHint(getResources().getString(
+                        R.string.send_hex_hint));
 
-                });
+            } else {
+                key_hex_send = false;
+                EditTextsend.setHint(getResources().getString(
+                        R.string.send_hex_hint_null));
+                System.out.println(key_hex_send);
+            }
+
+        });
     }
 
     public SerialPortSpd getmSerialPort() {
@@ -405,7 +384,6 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
 
         super.onResume();
         if (!debugtest) {

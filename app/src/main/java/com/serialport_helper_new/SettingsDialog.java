@@ -3,7 +3,6 @@ package com.serialport_helper_new;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.serialport.DeviceControlSpd;
@@ -269,12 +268,7 @@ class SettingsDialog extends Dialog implements
         AlertDialog.Builder inputDialog = new AlertDialog.Builder(mainActivity);
         inputDialog.setTitle(R.string.dialog_databit).setView(editText);
         inputDialog.setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dataBit = Integer.parseInt(editText.getText().toString());
-                    }
-                }).show();
+                (dialog, which) -> dataBit = Integer.parseInt(editText.getText().toString())).show();
     }
 
     @Override
@@ -369,12 +363,7 @@ class SettingsDialog extends Dialog implements
             AlertDialog.Builder inputDialog = new AlertDialog.Builder(mainActivity);
             inputDialog.setTitle(R.string.input_gpio).setView(editText);
             inputDialog.setPositiveButton(R.string.ok,
-                    new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            tvGpioShow.append(editText.getText().toString() + ",");
-                        }
-                    }).show();
+                    (dialog, which) -> tvGpioShow.append(editText.getText().toString() + ",")).show();
         } else if (btnClearGpio == v)
 
         {
